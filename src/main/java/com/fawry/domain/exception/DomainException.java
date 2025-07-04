@@ -1,4 +1,4 @@
-package com.fawry.exceptions;
+package com.fawry.domain.exception;
 
 public abstract class DomainException extends RuntimeException {
     protected DomainException(String message) {
