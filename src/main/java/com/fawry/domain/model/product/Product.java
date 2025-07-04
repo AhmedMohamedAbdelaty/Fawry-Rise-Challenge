@@ -2,8 +2,6 @@ package com.fawry.domain.model.product;
 
 import com.fawry.domain.exception.InvalidProductException;
 import com.fawry.domain.model.valueobject.Money;
-import java.util.Objects;
-
 public abstract class Product {
     protected final ProductId productId;
     protected final String name;
