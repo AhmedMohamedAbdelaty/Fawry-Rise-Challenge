@@ -86,6 +86,21 @@ public class Money {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Money money = (Money) obj;
+        return amount.compareTo(money.amount) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return amount.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "$" + amount.toString();
     }

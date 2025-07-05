@@ -87,6 +87,21 @@ public class Weight {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Weight weight = (Weight) obj;
+        return amount.compareTo(weight.amount) == 0 && unit.equals(weight.unit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, unit);
+    }
+
+    @Override
     public String toString() {
         return amount.toString() + " " + unit;
     }
