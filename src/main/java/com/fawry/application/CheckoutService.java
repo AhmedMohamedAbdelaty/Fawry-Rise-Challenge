@@ -30,12 +30,12 @@ public class CheckoutService {
         Money total = subtotal.add(shippingCost);
 
         // Check customer
-        if (!customer.hasSufficientBalance(total)) {
+        if (!customer.canAfford(total)) {
             throw new InsufficientBalanceException(total.getAmount(), customer.getBalance().getAmount());
         }
 
         // payment
-        customer.deductBalance(total);
+        customer.deductFromWallet(total);
 
         // update inventory
         updateInventory(cart.getItems());
