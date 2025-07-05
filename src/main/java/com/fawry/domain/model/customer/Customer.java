@@ -1,5 +1,6 @@
 package com.fawry.domain.model.customer;
 
+import com.fawry.domain.exception.InsufficientStockException;
 import com.fawry.domain.model.cart.Cart;
 import com.fawry.domain.model.product.Product;
 import com.fawry.domain.model.product.ProductId;
@@ -42,26 +43,25 @@ public class Customer {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
-
+        if (!product.isAvailable(quantity)) {
+            throw new InsufficientStockException(
+                    "Insufficient stock for " + product.getName() +
+                            ". Available: " + product.getQuantity() + ", Requested: " + quantity);
+        }
         try {
             cart.addItem(product, quantity);
-            System.out.println("Added " + quantity + " x " + product.getName() + " to cart");
+            System.out.println("Added " + quantity + "x " + product.getName() + " to cart");
         } catch (Exception e) {
-            System.err.println("Error adding item to cart: " + e.getMessage());
+            System.err.println("Error adding product to cart: " + e.getMessage());
         }
+
     }
 
     public void removeFromCart(ProductId productId) {
         if (productId == null) {
             throw new IllegalArgumentException("Product ID cannot be null");
         }
-
-        try {
-            cart.removeItem(productId);
-            System.out.println("Removed item from cart");
-        } catch (Exception e) {
-            System.err.println("Error removing item from cart: " + e.getMessage());
-        }
+        cart.removeItem(productId);
     }
 
     public void updateCartItemQuantity(ProductId productId, int newQuantity) {
@@ -71,13 +71,7 @@ public class Customer {
         if (newQuantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
-
-        try {
-            cart.updateItemQuantity(productId, newQuantity);
-            System.out.println("Updated item quantity in cart");
-        } catch (Exception e) {
-            System.err.println("Error updating item quantity: " + e.getMessage());
-        }
+        cart.updateItemQuantity(productId, newQuantity);
     }
 
     public void deductFromWallet(Money amount) {
@@ -106,6 +100,13 @@ public class Customer {
 
     public Money getBalance() {
         return walletBalance;
+    }
+
+    public boolean isProductAvailable(Product product, int quantity) {
+        if (product == null) {
+            return false;
+        }
+        return product.isAvailable(quantity);
     }
 
     @Override

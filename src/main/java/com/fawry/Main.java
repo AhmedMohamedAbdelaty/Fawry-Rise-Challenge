@@ -140,7 +140,6 @@ public class Main {
                     "Laptop", new Money(30000), 5, new Weight(5.0));
 
             customer.addToCart(laptop, 2);
-            System.out.println("Added 2 laptops to cart");
 
             customer.removeFromCart(laptop.getProductId());
             System.out.println("Removed laptops from cart");
