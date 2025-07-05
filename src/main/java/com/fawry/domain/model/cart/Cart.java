@@ -1,6 +1,7 @@
 package com.fawry.domain.model.cart;
 
 import com.fawry.domain.exception.CartEmptyException;
+import com.fawry.domain.exception.InsufficientStockException;
 import com.fawry.domain.exception.InvalidProductException;
 import com.fawry.domain.model.product.Product;
 import com.fawry.domain.model.product.ProductId;
@@ -56,6 +57,12 @@ public class Cart {
         CartItem item = items.get(productId);
         if (item == null) {
             throw new InvalidProductException("Product not found in cart");
+        }
+
+        if (!item.getProduct().isAvailable(newQuantity)) {
+            throw new InsufficientStockException(
+                "Insufficient stock for " + item.getProduct().getName() +
+                ". Available: " + item.getProduct().getQuantity() + ", Requested: " + newQuantity);
         }
 
         item.setQuantity(newQuantity);

@@ -12,6 +12,18 @@ public record CheckoutResult(
         Money total,
         Money remainingBalance) {
     public CheckoutResult {
+        if (subtotal == null) {
+            throw new IllegalArgumentException("Subtotal cannot be null");
+        }
+        if (shippingCost == null) {
+            throw new IllegalArgumentException("Shipping cost cannot be null");
+        }
+        if (total == null) {
+            throw new IllegalArgumentException("Total cannot be null");
+        }
+        if (remainingBalance == null) {
+            throw new IllegalArgumentException("Remaining balance cannot be null");
+        }
         if (purchasedItems != null) {
             purchasedItems = List.copyOf(purchasedItems);
         }

@@ -24,7 +24,7 @@ public class ShippingService {
 
     public Money calculateShippingCostWithDiscounts(List<ShippableItem> items, Money orderSubtotal) {
         // Free shipping for large orders
-        if (orderSubtotal.isGreaterThan(FREE_SHIPPING_THRESHOLD) || orderSubtotal.equals(FREE_SHIPPING_THRESHOLD)) {
+        if (orderSubtotal.isGreaterThanOrEqual(FREE_SHIPPING_THRESHOLD)) {
             return Money.ZERO;
         }
 
