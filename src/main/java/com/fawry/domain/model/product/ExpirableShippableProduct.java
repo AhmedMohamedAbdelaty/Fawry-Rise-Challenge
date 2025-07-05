@@ -3,7 +3,6 @@ package com.fawry.domain.model.product;
 import com.fawry.domain.exception.ProductExpiredException;
 import com.fawry.domain.model.valueobject.Money;
 import com.fawry.domain.model.valueobject.Weight;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ExpirableShippableProduct extends Product implements Expirable, Shippable {
@@ -51,13 +50,6 @@ public class ExpirableShippableProduct extends Product implements Expirable, Shi
     @Override
     public Weight getWeight() {
         return weight;
-    }
-
-    @Override
-    public Money calculateShippingCost() {
-        // Shipping cost calculation: $5 per kg
-        BigDecimal shippingRate = BigDecimal.valueOf(5.0);
-        return new Money(weight.getAmount().multiply(shippingRate));
     }
 
     @Override

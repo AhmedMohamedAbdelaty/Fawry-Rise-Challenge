@@ -1,9 +1,7 @@
 package com.fawry.domain.model.cart;
 
 import com.fawry.domain.model.product.Product;
-import com.fawry.domain.model.product.Shippable;
 import com.fawry.domain.model.valueobject.Money;
-import java.util.Objects;
 
 public class CartItem {
     private final Product product;
@@ -54,13 +52,6 @@ public class CartItem {
 
     public Money calculateSubtotal() {
         return product.calculateSubtotal(quantity);
-    }
-
-    public Money calculateShippingCost() {
-        if (product instanceof Shippable) {
-            return ((Shippable) product).calculateShippingCost().multiply(quantity);
-        }
-        return Money.ZERO;
     }
 
     @Override

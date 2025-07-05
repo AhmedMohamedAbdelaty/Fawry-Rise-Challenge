@@ -2,7 +2,6 @@ package com.fawry.domain.model.product;
 
 import com.fawry.domain.model.valueobject.Money;
 import com.fawry.domain.model.valueobject.Weight;
-import java.math.BigDecimal;
 
 public class ShippableProduct extends Product implements Shippable {
     private final Weight weight;
@@ -26,13 +25,6 @@ public class ShippableProduct extends Product implements Shippable {
     @Override
     public Weight getWeight() {
         return weight;
-    }
-
-    @Override
-    public Money calculateShippingCost() {
-        // Shipping cost calculation: $5 per kg
-        BigDecimal shippingRate = BigDecimal.valueOf(5.0);
-        return new Money(weight.getAmount().multiply(shippingRate));
     }
 
     @Override
