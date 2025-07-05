@@ -24,4 +24,19 @@ public class ProductId {
     public String toString() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        ProductId productId = (ProductId) obj;
+        return id.equals(productId.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
