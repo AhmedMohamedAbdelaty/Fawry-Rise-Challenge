@@ -37,12 +37,10 @@ public class Customer {
 
     public void addToCart(Product product, int quantity) {
         if (product == null) {
-            System.err.println("Error: Cannot add null product to cart");
-            return;
+            throw new IllegalArgumentException("Product cannot be null");
         }
         if (quantity <= 0) {
-            System.err.println("Error: Quantity must be positive");
-            return;
+            throw new IllegalArgumentException("Quantity must be positive");
         }
 
         try {
@@ -55,8 +53,7 @@ public class Customer {
 
     public void removeFromCart(ProductId productId) {
         if (productId == null) {
-            System.err.println("Error: Cannot remove null product from cart");
-            return;
+            throw new IllegalArgumentException("Product ID cannot be null");
         }
 
         try {
@@ -69,12 +66,10 @@ public class Customer {
 
     public void updateCartItemQuantity(ProductId productId, int newQuantity) {
         if (productId == null) {
-            System.err.println("Error: Cannot update null product in cart");
-            return;
+            throw new IllegalArgumentException("Product ID cannot be null");
         }
         if (newQuantity <= 0) {
-            System.err.println("Error: Quantity must be positive");
-            return;
+            throw new IllegalArgumentException("Quantity must be positive");
         }
 
         try {
@@ -109,16 +104,8 @@ public class Customer {
         return walletBalance.isGreaterThanOrEqual(amount);
     }
 
-    public boolean hasSufficientBalance(Money amount) {
-        return canAfford(amount);
-    }
-
     public Money getBalance() {
         return walletBalance;
-    }
-
-    public void deductBalance(Money amount) {
-        deductFromWallet(amount);
     }
 
     @Override
